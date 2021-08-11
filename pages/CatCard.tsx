@@ -9,7 +9,7 @@ const CatCard = ({ title, author, url }) => (
     style={{ width: 240, margin: "10px" }}
     cover={<img alt="example" src={url} />}
   >
-    <Meta title={title} description={author} />
+    <Meta title={title} description={"By " + author} />
   </Card>
 );
 
