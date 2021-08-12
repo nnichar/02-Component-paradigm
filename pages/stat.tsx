@@ -1,45 +1,62 @@
 import React from "react";
-import { Table, Tag, Space } from 'antd';
+import { NextPage } from "next";
+import { useState } from "react";
+import { CatPost } from "./types/Cats";
+import { Table, Row, Col, Button} from 'antd';
+import {SmileOutlined} from '@ant-design/icons';
 
-function App() {
-
-  const data = [
-      {
-        key: '1',
-        name: 'John Brown',
-        number: 123,
-      },
-      {
-        key: '2',
-        name: 'Jim Green',
-        number: 456,
-      },
-      {
-        key: '3',
-        name: 'Joe Black',
-        number: 789,
-      },
-  ];
-
-  const columns = [
-      {
-          title: 'Name',
-          dataIndex: 'name',
-      },
-      {
-          title: ' The number of images',
-          dataIndex: 'number',
-          // sortDirections: ['descend'],
-          // sorter: (a, b) => a.number - b.number, 
-      },
-  ]
-
-  return (
-      <div className="App">
-          <br /><br />
-          <Table columns={columns} dataSource={data} />
-      </div>
-  );
+interface StatProps {
+  posts: CatPost[];
 }
 
-export default App;
+  const count = 0;
+  const Stat: NextPage<StatProps> = ({ posts }) => {
+    const [selectedPosts, setSelectedPosts] = useState(posts);
+    const data = 
+        selectedPosts.map(({ author }, index) => (
+            {
+              key: index,
+              name: author,
+              number : 1,
+            }
+        ))
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+        },
+        {
+            title: ' The number of images',
+            dataIndex: 'number',
+            // defaultSortOrder: 'descend',
+            sorter: (a, b) => a.number - b.number, 
+            // sortDirections: ['descend'],
+        },
+    ]
+
+    return (
+      <div>
+            <br /><br />
+            <Table columns={columns} dataSource={data} />
+
+            <Row justify="center">
+                <Col >
+                    <Button type="primary" href="/" size="large" shape="round" icon={<SmileOutlined/> }> Back to Home Page </Button>
+                </Col>
+            </Row>   
+      </div>
+    );
+  }
+  
+Stat.getInitialProps = async ({
+  req: {
+    headers: { host },
+  },
+}): Promise<StatProps> => {
+  console.log(host);
+  const res = await fetch(`http://${host}/api/getCats`);
+  return { posts: await res.json() };
+};
+
+export default Stat;
