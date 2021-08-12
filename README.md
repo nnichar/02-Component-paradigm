@@ -33,11 +33,15 @@ On the homepage `localhost:3000`, there are cards containing cute cats along wit
 
 1. Add the text `By` in front of each author name.
 
+    Hint: See `components/CatCard.tsx`
+
 2. (Optional) Add a new page which should be accessed on `/stat`.
+
+    Hint: https://nextjs.org/docs/routing/introduction
 
 3. (Optional) Add a button (or hyperlink)  on the homepage. The button should redirect to the stat page.
 
-4. (Optional) On the stat page, add a table which shows all of the author. The author name must be distinct.
+4. (Optional) On the stat page, add a table which shows all of the distinct authors.
 
     The following link may be useful: https://ant.design/components/table
 
