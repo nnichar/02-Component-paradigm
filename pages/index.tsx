@@ -5,11 +5,9 @@ import { CatPost } from "./types/Cats";
 import { NextPage } from "next";
 import { useState } from "react";
 import CatCard from "./CatCard";
-import { Row, Col } from "antd";
 import Link from "next/link";
-import {Button} from 'antd';
+import {Row, Col, Button} from 'antd';
 import {SmileOutlined} from '@ant-design/icons';
-
 
 interface HomeProps {
   posts: CatPost[];
@@ -32,6 +30,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
             </Col>
           ))}
         </Row>
+        <div className=""></div>
       </main>
       <footer className={styles.footer}>
         
@@ -39,17 +38,8 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
           <a>Stat Page</a>
         </Link>
 
-        <Button 
-          type="primary" 
-          href="/stat" 
-          size="large" 
-          style={{ margin: 200}} 
-          shape="round"
-          icon={<SmileOutlined/> }
-        >
-        Stat Page
-        </Button>
-
+        <Button type="primary" href="/stat" size="large" style={{ margin: 200}} shape="round" icon={<SmileOutlined/> }> Stat Page </Button>
+        
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
