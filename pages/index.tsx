@@ -33,21 +33,11 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         <div className=""></div>
       </main>
       <footer className={styles.footer}>
-        <Link href="/stat">
-          <a>Stat Page</a>
-        </Link>
+        <Link href="/stat">Stat Page</Link>
 
-        <Button
-          type="primary"
-          href="/stat"
-          size="large"
-          style={{ margin: 200 }}
-          shape="round"
-          icon={<SmileOutlined />}
-        >
-          {" "}
-          Stat Page{" "}
-        </Button>
+        <Link href="/stat" passHref>
+          <Button type="primary" size="large" style={{ margin: 200 }} shape="round" icon={<SmileOutlined />}> Stat Page </Button>
+        </Link>
 
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -64,14 +54,18 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
   );
 };
 
-Home.getInitialProps = async ({
-  req: {
-    headers: { host },
-  },
-}): Promise<HomeProps> => {
-  console.log(host);
-  const res = await fetch(`http://${host}/api/getCats`);
-  return { posts: await res.json() };
+Home.getInitialProps = async ({ req }) : Promise<HomeProps> => {
+    let host = "";
+    if (req != undefined) {
+      const {
+        headers: { host: hostHeader },
+      } = req;
+      host = hostHeader;
+    } else {
+      host = "localhost:3000";
+    }
+    const res = await fetch(`http://${host}/api/getCats`);
+    return { posts: await res.json() };
 };
 
 export default Home;
