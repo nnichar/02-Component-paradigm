@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { CatPost } from "./types/Cats";
 import Link from "next/link";
 import { Table, Row, Col, Button} from 'antd';
-import {SmileOutlined} from '@ant-design/icons';
+import {HomeOutlined} from '@ant-design/icons';
 
 interface StatProps {
   posts: CatPost[];
@@ -83,7 +83,9 @@ const Stat: NextPage<StatProps> = ({ posts }) => {
             <Row justify="center">
                 <Col >
                     <Link href="/" passHref>
-                        <Button type="primary" size="large" shape="round" icon={<SmileOutlined/> }> Back to Home Page </Button>
+                        <Button type="primary" size="large" shape="round" icon={<HomeOutlined/> }> 
+                            Back to Home Page 
+                        </Button>
                     </Link>
                 </Col>
             </Row>   
@@ -91,18 +93,18 @@ const Stat: NextPage<StatProps> = ({ posts }) => {
     );
   }
   
- Stat.getInitialProps = async ({ req }) : Promise<StatProps> => {
+  Stat.getInitialProps = async ({req}):Promise<StatProps> => {
     let host = "";
-    if (req != undefined) {
+    if (req!=undefined){
       const {
-        headers: { host: hostHeader },
+        headers: {host: hostHeader},
       } = req;
       host = hostHeader;
-    } else {
+    }else {
       host = "localhost:3000";
     }
     const res = await fetch(`http://${host}/api/getCats`);
     return { posts: await res.json() };
-};
-
-export default Stat;
+  };
+  
+  export default Stat;
