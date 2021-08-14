@@ -45,9 +45,9 @@ const Stat: NextPage<StatProps> = ({ posts }) => {
 
     // ***** Way 4 : Very Short Reduce   *****
     const accumulatedData = posts.reduce(
-      (acc, {author}) => ({
-        ...acc,
-        [author]: author in acc ? acc[author] +1 : 1,
+      (prevAcc, {author}) => ({
+        ...prevAcc,
+        [author]: author in prevAcc ? prevAcc[author] +1 : 1,
       }),
       {}
     );
@@ -69,9 +69,8 @@ const Stat: NextPage<StatProps> = ({ posts }) => {
         {
             title: ' The number of images',
             dataIndex: 'number',
-            // defaultSortOrder: 'descend',
+            defaultSortOrder: 'descend',
             sorter: (a, b) => a.number - b.number, 
-            //sortDirections: ['descend'],
         },
     ]
 
