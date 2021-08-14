@@ -56,14 +56,14 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
   );
 };
 
-Home.getInitialProps = async ({req}):Promise<HomeProps> => {
+Home.getInitialProps = async ({ req }) : Promise<HomeProps> => {
   let host = "";
-  if (req!=undefined){
+  if (req != undefined) {
     const {
-      headers: {host: hostHeader},
+      headers: { host: hostHeader },
     } = req;
     host = hostHeader;
-  }else {
+  } else {
     host = "localhost:3000";
   }
   const res = await fetch(`http://${host}/api/getCats`);
